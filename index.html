@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RDF Countdown</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    display:flex;
+    flex-direction: column-reverse;
+    justify-content:center;
+    align-items:around;
+    height:100vh;
+    margin:0;
+    text-align:center;
+}
+
+#countdown{
+    font-size:3rem;
+    margin-top:20px;
+}
+#countdown2{
+    font-size:3rem;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div>
+    <h1>RDF Countdown</h1>
+    <h2>20 February 2027</h2>
+
+    <div id="countdown"></div>
+</div>
+  
+<div>
+    <h1>End Countdown</h1>
+    <h2>1 March 2027</h2>
+
+    <div id="countdown2"></div>
+</div>
+<script>
+
+const rdfDate = new Date("2027-02-20T00:00:00");
+const endDate = new Date("2027-03-01T00:00:00");
+
+function formatCountdown(targetDate){
+
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if(diff <= 0){
+        return "🎉 Finished!";
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+
+    const hours = Math.floor(
+        (diff % (1000*60*60*24))
+        / (1000*60*60)
+    );
+
+    const minutes = Math.floor(
+        (diff % (1000*60*60))
+        / (1000*60)
+    );
+
+    const seconds = Math.floor(
+        (diff % (1000*60))
+        / 1000
+    );
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+function updateCountdowns(){
+
+    document.getElementById("countdown").innerHTML =
+        formatCountdown(rdfDate);
+
+    document.getElementById("countdown2").innerHTML =
+        formatCountdown(endDate);
+}
+
+updateCountdowns();
+
+setInterval(updateCountdowns, 1000);
+
+</script>
+</body>
+</html>
